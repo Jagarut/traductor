@@ -14,12 +14,14 @@ This program reads a PDF file, splits the text into manageable chunks, translate
 ## Installation
 
 1. Clone the repository:
+
    ```sh
-   git clone https://github.com/your-username/pdf-translator.git
-   cd pdf-translator
+   git clone https://github.com/your-username/traductor.git
+   cd traductor
    ```
 
 2. Install the required dependencies:
+
    ```sh
    pip install -r requirements.txt
    ```
@@ -39,6 +41,7 @@ This program reads a PDF file, splits the text into manageable chunks, translate
    ```
 
 The program will:
+
 - Read the PDF file from the `input` directory.
 - Split the text into chunks.
 - Translate each chunk into Spanish using the specified translation API.
@@ -47,10 +50,14 @@ The program will:
 
 ## Dependencies
 
-- `fpdf`: For creating PDF files.
+- `fpdf2`: For creating PDF files.
 - `PyMuPDF`: For reading PDF files.
 - `requests`: For making HTTP requests to translation APIs.
-- `openai`: For interacting with the OpenAI API.
+- `openai`: For interacting with the xAI API.
 - `python-dotenv`: For loading environment variables from a `.env` file.
 
 You can install these dependencies using the following command:
+
+```sh
+pip install -r requirements.txt
+```
