@@ -21,4 +21,5 @@ def read_pdf(file_path):
         # Extract the text from the page and append it to the text variable
         text += page.get_text()
 
+    doc.close()
     return text

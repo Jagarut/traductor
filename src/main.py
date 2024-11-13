@@ -1,29 +1,36 @@
 import os
-from src.pdf_reader import read_pdf
-from src.text_chunker import split_text_into_chunks
-from src.translator import translate_to_spanish
-from src.file_manager import save_chunk_to_file, create_directory_if_not_exists
-from src.pdf_constructor import create_pdf_from_text
+from pdf_reader import read_pdf
+from text_chunker import split_text_into_chunks
+from translator import translate_to_spanish_with_groq, translate_to_spanish_with_xAI
+from file_manager import save_text_to_file
+from pdf_constructor import create_pdf_from_text
 
-def main():
-    input_pdf_path = "input/original.pdf"
-    translations_dir = "translations"
-    output_pdf_path = "output/translated.pdf"
+def main(input_pdf_path, translations_dir, output_pdf_path):
+    
 
-    create_directory_if_not_exists(translations_dir)
-
+    
+    # Step 1: Extract text from the PDF
     text = read_pdf(input_pdf_path)
+    
+    # Step 2: Chunk the text into manageable pieces
     chunks = split_text_into_chunks(text)
-
+    
     translated_chunks = []
+    # Step 3: Translate each chunk and save the output
     for i, chunk in enumerate(chunks):
-        translated_chunk = translate_to_spanish(chunk)
-        chunk_file_path = os.path.join(translations_dir, f"chunk_{i+1:02d}.txt")
-        save_chunk_to_file(translated_chunk, chunk_file_path)
-        translated_chunks.append(translated_chunk)
+        translated_chunk = translate_to_spanish_with_xAI(chunk)
+        if translated_chunk:
+            chunk_file_path = os.path.join(translations_dir, f"chunk_{i+1:02d}.txt")
+            save_text_to_file(translated_chunk, chunk_file_path)
+            
+    #     translated_chunks.append(translated_chunk)
 
-    translated_text = "\n".join(translated_chunks)
-    create_pdf_from_text(translated_text, output_pdf_path)
+    # translated_text = "\n".join(translated_chunks)
+    # create_pdf_from_text(translated_text, output_pdf_path)
 
 if __name__ == "__main__":
-    main()
+    input_pdf_path = "input/test.pdf"
+    translations_dir = "translations"
+    output_pdf_path = "output/translated.pdf"
+    
+    main(input_pdf_path, translations_dir, output_pdf_path)

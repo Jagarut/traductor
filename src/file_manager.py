@@ -1,7 +1,7 @@
 import os
 
-def save_chunk_to_file(chunk, file_path):
-    with open(file_path, 'w') as file:
+def save_text_to_file(chunk, file_path):
+    with open(file_path, 'w', encoding='utf-8') as file:
         file.write(chunk)
 
 def create_directory_if_not_exists(directory_path):
