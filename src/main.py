@@ -20,7 +20,7 @@ def main(input_pdf_path, translations_dir, output_pdf_path):
     for i, chunk in enumerate(chunks):
         print(f"procesing {i} ...") 
         # changing the function we can change the model we use to translate   
-        translated_chunk = translate_to_spanish_with_ollama(chunk)
+        translated_chunk = translate_to_spanish_with_xAI(chunk)
         if translated_chunk:
             chunk_file_path = os.path.join(translations_dir, f"chunk_{i+1:02d}.txt")
             save_text_to_file(translated_chunk, chunk_file_path)
