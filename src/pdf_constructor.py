@@ -1,12 +1,36 @@
 from fpdf import FPDF
 
-def create_pdf_from_text(text, output_path):
+def create_pdf_from_text(text: str, output_path: str, font_name: str = "Arial", font_size: int = 12) -> None:
+    """
+    Creates a PDF file from input text.
+    
+    Args:
+        text: The text content to write to PDF
+        output_path: The file path where PDF will be saved
+        font_name: Name of the font to use (default: Arial)
+        font_size: Size of the font (default: 12)
+    """
+    font_name = "Arial"
+    font_size = 12
+    
+    if not text or not output_path:
+        raise ValueError("Text and output path must not be empty")
+        
     pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("Arial", size=12)
+    pdf.set_font(font_name, size=font_size)
+    
+    # Calculate maximum width for text
+    page_width = pdf.w - 2 * pdf.l_margin
 
     for line in text.split('\n'):
-        pdf.multi_cell(0, 10, line)
+        # Use write instead of multi_cell for better text wrapping
+        pdf.write(10, line + '\n')
+        # Alternative: pdf.multi_cell(page_width, 10, line)
 
-    pdf.output(output_path)
+    try:
+        pdf.output(output_path)
+    except Exception as e:
+        raise Exception(f"Failed to create PDF: {str(e)}")
+
