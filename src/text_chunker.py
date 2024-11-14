@@ -11,7 +11,15 @@ def split_text_into_chunks(text, max_words=800):
 
     Returns:
     list: A list of text chunks.
+    
+    Raises:
+    ValueError: If text is empty or max_words is not positive
     """
+    if not text or not isinstance(text, str):
+        raise ValueError("Text must be a non-empty string")
+    if not isinstance(max_words, int) or max_words <= 0:
+        raise ValueError("max_words must be a positive integer")
+    
     # Split text into sentences using regex pattern that looks for punctuation followed by space
     sentences = re.split(r'(?<=[.!?]) +', text)
     # Initialize list to store final chunks and current chunk being built

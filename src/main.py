@@ -15,16 +15,22 @@ def main(input_pdf_path, translations_dir, output_pdf_path):
     # Step 2: Chunk the text into manageable pieces
     chunks = split_text_into_chunks(text)
     
+    # List to store translated chunks
     translated_chunks = []
-    # Step 3: Translate each chunk and save the output
+    
+    # Step 3: Translate each chunk and save the output    
     for i, chunk in enumerate(chunks):
         print(f"procesing {i} ...") 
         # changing the function we can change the model we use to translate   
         translated_chunk = translate_to_spanish_with_xAI(chunk)
+        # If translation was successful
         if translated_chunk:
+            # Create file path for saving the translated chunk
             chunk_file_path = os.path.join(translations_dir, f"chunk_{i+1:02d}.txt")
+            # Save the translated text to a file
             save_text_to_file(translated_chunk, chunk_file_path)
-        translated_chunks.append(translated_chunk)
+        # Add the translated chunk to our collection
+        translated_chunks.append(translated_chunk)        
     print("Done translating!")
     
     # Step 4: Combine translated text files into a PDF

@@ -10,13 +10,15 @@ def create_pdf_from_text(text: str, output_path: str, font_name: str = "Arial", 
         font_name: Name of the font to use (default: Arial)
         font_size: Size of the font (default: 12)
     """
-    font_name = "Arial"
-    font_size = 12
+    # font_name = "Arial"
+    # font_size = 12
     
     if not text or not output_path:
         raise ValueError("Text and output path must not be empty")
         
     pdf = FPDF()
+    pdf.add_font('Arial', '', r'C:\Windows\Fonts\arial.ttf', uni=True)
+    pdf.set_font('Arial', '', 12)
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.set_font(font_name, size=font_size)
